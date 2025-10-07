@@ -13,7 +13,9 @@ const EducationScreen: React.FC<EducationScreenProps> = ({ data, onChange }) => 
       id: Date.now().toString(),
       degree: '',
       institution: '',
+      startMonth: '',
       startYear: '',
+      endMonth: '',
       endYear: '',
       description: ''
     };
@@ -87,30 +89,64 @@ const EducationScreen: React.FC<EducationScreenProps> = ({ data, onChange }) => 
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              {/* Start Date */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Start Year *
+                    Start Date *
                   </label>
-                  <input
-                    type="text"
-                    value={item.startYear}
-                    onChange={(e) => updateEducation(item.id, 'startYear', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="2020"
-                  />
+                  <div className="grid grid-cols-2 gap-3">
+                    <select
+                      value={item.startMonth || ''}
+                      onChange={(e) => updateEducation(item.id, 'startMonth', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    >
+                      <option value="">Month</option>
+                      {[
+                        'January', 'February', 'March', 'April', 'May', 'June',
+                        'July', 'August', 'September', 'October', 'November', 'December'
+                      ].map((month) => (
+                        <option key={month} value={month}>{month}</option>
+                      ))}
+                    </select>
+                    
+                    <input
+                      type="text"
+                      value={item.startYear}
+                      onChange={(e) => updateEducation(item.id, 'startYear', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Year"
+                    />
+                  </div>
                 </div>
-                
+
+                {/* End Date */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    End Year *
+                    End Date *
                   </label>
-                  <input
-                    type="text"
-                    value={item.endYear}
-                    onChange={(e) => updateEducation(item.id, 'endYear', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="2024"
-                  />
+                  <div className="grid grid-cols-2 gap-3">
+                    <select
+                      value={item.endMonth || ''}
+                      onChange={(e) => updateEducation(item.id, 'endMonth', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    >
+                      <option value="">Month</option>
+                      {[
+                        'January', 'February', 'March', 'April', 'May', 'June',
+                        'July', 'August', 'September', 'October', 'November', 'December'
+                      ].map((month) => (
+                        <option key={month} value={month}>{month}</option>
+                      ))}
+                    </select>
+                    
+                    <input
+                      type="text"
+                      value={item.endYear}
+                      onChange={(e) => updateEducation(item.id, 'endYear', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Year"
+                    />
+                  </div>
                 </div>
               </div>
               

@@ -22,6 +22,13 @@ const TemplateScreen: React.FC<TemplateScreenProps> = ({ selectedTemplate, onCha
       description: 'Two-column layout that fits more content',
       icon: Grid,
       preview: '/api/placeholder/300/400'
+    },
+    {
+      id: 'normal' as ResumeTemplate,
+      name: 'Normal Template',
+      description: 'Clean, single-column layout with modern typography',
+      icon: Grid,
+      preview: '/api/placeholder/300/400'
     }
   ];
 
@@ -91,6 +98,15 @@ const TemplateScreen: React.FC<TemplateScreenProps> = ({ selectedTemplate, onCha
                 <li>Space-efficient design</li>
                 <li>Sidebar for skills</li>
                 <li>More content per page</li>
+              </ul>
+            </div>
+            <div>
+              <strong>Simple Template:</strong>
+              <ul className="list-disc list-inside mt-1 space-y-1">
+                <li>Single-column layout</li>
+                <li>Clean typography</li>
+                <li>Emphasis on content</li>
+                <li>Professional appearance</li>
               </ul>
             </div>
           </div>

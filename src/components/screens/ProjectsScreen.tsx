@@ -1,33 +1,32 @@
 import React from 'react';
-import { Plus, X, Briefcase } from 'lucide-react';
-import { Experience } from '../../types/Resume';
+import { Plus, X, GraduationCap } from 'lucide-react';
+import { Project } from '../../types/Resume';
 
-interface ExperienceScreenProps {
-  data: Experience[];
-  onChange: (data: Experience[]) => void;
+interface ProjectsScreenProps {
+  data: Project[];
+  onChange: (data: Project[]) => void;
 }
 
-const ExperienceScreen: React.FC<ExperienceScreenProps> = ({ data, onChange }) => {
-  const addExperience = () => {
-    const newExperience: Experience = {
+const ProjectsScreen: React.FC<ProjectsScreenProps> = ({ data, onChange }) => {
+  const addProject = () => {
+    const newProject: Project = {
       id: Date.now().toString(),
       title: '',
-      company: '',
+      link: '',
       startMonth: '',
       startYear: '',
       endMonth: '',
       endYear: '',
-      description: '',
-      current: false
+      description: ''
     };
-    onChange([...data, newExperience]);
+    onChange([...data, newProject]);
   };
 
-  const removeExperience = (id: string) => {
+  const removeProject = (id: string) => {
     onChange(data.filter(item => item.id !== id));
   };
 
-  const updateExperience = (id: string, field: keyof Experience, value: string | boolean) => {
+  const updateProject = (id: string, field: keyof Project, value: string) => {
     onChange(data.map(item => 
       item.id === id ? { ...item, [field]: value } : item
     ));
@@ -37,10 +36,10 @@ const ExperienceScreen: React.FC<ExperienceScreenProps> = ({ data, onChange }) =
     <div className="max-w-2xl mx-auto">
       <div className="bg-white rounded-lg shadow-lg p-8">
         <div className="flex items-center mb-6">
-          <Briefcase className="w-8 h-8 text-blue-500 mr-3" />
+          <GraduationCap className="w-8 h-8 text-blue-500 mr-3" />
           <div>
-            <h2 className="text-3xl font-bold text-gray-900">Work Experience</h2>
-            <p className="text-gray-600 mt-1">Add your professional experience</p>
+            <h2 className="text-3xl font-bold text-gray-900">Projects</h2>
+            <p className="text-gray-600 mt-1">Add your projects</p>
           </div>
         </div>
         
@@ -49,11 +48,11 @@ const ExperienceScreen: React.FC<ExperienceScreenProps> = ({ data, onChange }) =
             <div key={item.id} className="border border-gray-200 rounded-lg p-6 relative">
               <div className="flex justify-between items-start mb-4">
                 <h3 className="text-lg font-semibold text-gray-900">
-                  Experience {index + 1}
+                  Projects {index + 1}
                 </h3>
                 {data.length > 1 && (
                   <button
-                    onClick={() => removeExperience(item.id)}
+                    onClick={() => removeProject(item.id)}
                     className="text-red-500 hover:text-red-700 transition-colors duration-200"
                   >
                     <X className="w-5 h-5" />
@@ -64,33 +63,33 @@ const ExperienceScreen: React.FC<ExperienceScreenProps> = ({ data, onChange }) =
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Job Title *
+                    Title *
                   </label>
                   <input
                     type="text"
                     value={item.title}
-                    onChange={(e) => updateExperience(item.id, 'title', e.target.value)}
+                    onChange={(e) => updateProject(item.id, 'title', e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="Senior Software Engineer"
+                    placeholder="Bachelor of Science in Computer Science"
                   />
                 </div>
                 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Company *
+                    Link *
                   </label>
                   <input
                     type="text"
-                    value={item.company}
-                    onChange={(e) => updateExperience(item.id, 'company', e.target.value)}
+                    value={item.link}
+                    onChange={(e) => updateProject(item.id, 'link', e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="Tech Company Inc."
+                    placeholder="University of California, Berkeley"
                   />
                 </div>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                {/* Start Date */}
+              {/* Start Date */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Start Date *
@@ -98,7 +97,7 @@ const ExperienceScreen: React.FC<ExperienceScreenProps> = ({ data, onChange }) =
                   <div className="grid grid-cols-2 gap-3">
                     <select
                       value={item.startMonth || ''}
-                      onChange={(e) => updateExperience(item.id, 'startMonth', e.target.value)}
+                      onChange={(e) => updateProject(item.id, 'startMonth', e.target.value)}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     >
                       <option value="">Month</option>
@@ -113,7 +112,7 @@ const ExperienceScreen: React.FC<ExperienceScreenProps> = ({ data, onChange }) =
                     <input
                       type="text"
                       value={item.startYear}
-                      onChange={(e) => updateExperience(item.id, 'startYear', e.target.value)}
+                      onChange={(e) => updateProject(item.id, 'startYear', e.target.value)}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       placeholder="Year"
                     />
@@ -128,7 +127,7 @@ const ExperienceScreen: React.FC<ExperienceScreenProps> = ({ data, onChange }) =
                   <div className="grid grid-cols-2 gap-3">
                     <select
                       value={item.endMonth || ''}
-                      onChange={(e) => updateExperience(item.id, 'endMonth', e.target.value)}
+                      onChange={(e) => updateProject(item.id, 'endMonth', e.target.value)}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     >
                       <option value="">Month</option>
@@ -143,7 +142,7 @@ const ExperienceScreen: React.FC<ExperienceScreenProps> = ({ data, onChange }) =
                     <input
                       type="text"
                       value={item.endYear}
-                      onChange={(e) => updateExperience(item.id, 'endYear', e.target.value)}
+                      onChange={(e) => updateProject(item.id, 'endYear', e.target.value)}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       placeholder="Year"
                     />
@@ -151,44 +150,27 @@ const ExperienceScreen: React.FC<ExperienceScreenProps> = ({ data, onChange }) =
                 </div>
               </div>
               
-              <div className="mb-4">
-                <label className="flex items-center text-sm text-gray-600">
-                  <input
-                    type="checkbox"
-                    checked={item.current}
-                    onChange={(e) => {
-                      updateExperience(item.id, 'current', e.target.checked);
-                      if (e.target.checked) {
-                        updateExperience(item.id, 'endYear', '');
-                      }
-                    }}
-                    className="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                  />
-                  I currently work here
-                </label>
-              </div>
-              
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Job Description *
+                  Additional Details
                 </label>
                 <textarea
-                  value={item.description}
-                  onChange={(e) => updateExperience(item.id, 'description', e.target.value)}
-                  rows={4}
+                  value={item.description || ''}
+                  onChange={(e) => updateProject(item.id, 'description', e.target.value)}
+                  rows={3}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-                  placeholder="• Led development of user-facing features using React and Node.js&#10;• Collaborated with cross-functional teams to deliver products on time&#10;• Implemented automated testing that reduced bugs by 40%"
+                  placeholder="GPA: 3.8/4.0, Summa Cum Laude, Relevant coursework..."
                 />
               </div>
             </div>
           ))}
           
           <button
-            onClick={addExperience}
+            onClick={addProject}
             className="w-full flex items-center justify-center px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-blue-400 hover:text-blue-600 transition-all duration-200"
           >
             <Plus className="w-5 h-5 mr-2" />
-            Add Experience
+            Add Project
           </button>
         </div>
       </div>
@@ -196,4 +178,4 @@ const ExperienceScreen: React.FC<ExperienceScreenProps> = ({ data, onChange }) =
   );
 };
 
-export default ExperienceScreen;
+export default ProjectsScreen;

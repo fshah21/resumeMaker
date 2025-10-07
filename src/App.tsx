@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { ResumeData, ResumeTemplate, PersonalInfo, Education, Experience } from './types/Resume';
+import { useState } from 'react';
+import { ResumeData, ResumeTemplate, PersonalInfo, Education, Experience, Project } from './types/Resume';
 import ProgressBar from './components/ProgressBar';
 import Navigation from './components/Navigation';
 import WelcomeScreen from './components/screens/WelcomeScreen';
 import PersonalInfoScreen from './components/screens/PersonalInfoScreen';
 import SummaryScreen from './components/screens/SummaryScreen';
 import EducationScreen from './components/screens/EducationScreen';
+import ProjectsScreen from './components/screens/ProjectsScreen';
 import ExperienceScreen from './components/screens/ExperienceScreen';
 import SkillsScreen from './components/screens/SkillsScreen';
 import TemplateScreen from './components/screens/TemplateScreen';
@@ -39,7 +40,8 @@ function App() {
     summary: '',
     education: [],
     experience: [],
-    skills: []
+    skills: [],
+    projects: []
   });
 
   const updatePersonalInfo = (personalInfo: PersonalInfo) => {
@@ -60,6 +62,10 @@ function App() {
 
   const updateSkills = (skills: string[]) => {
     setResumeData(prev => ({ ...prev, skills }));
+  };
+
+  const updateProjects = (projects: Project[]) => {
+    setResumeData(prev => ({ ...prev, projects }));
   };
 
   const nextStep = () => {
@@ -90,7 +96,8 @@ function App() {
       summary: '',
       education: [],
       experience: [],
-      skills: []
+      skills: [],
+      projects: []
     });
   };
 
@@ -113,9 +120,11 @@ function App() {
                resumeData.experience.every(exp => exp.title && exp.company && exp.startYear && exp.description);
       case 6: // Skills
         return resumeData.skills.length > 0;
-      case 7: // Template
+      case 7: // Projects
+        return resumeData.projects.length > 0;
+      case 8: // Template
         return !!selectedTemplate;
-      case 8: // Preview
+      case 9: // Preview
         return true;
       default:
         return false;
@@ -163,12 +172,19 @@ function App() {
         );
       case 7:
         return (
+          <ProjectsScreen
+            data={resumeData.projects}
+            onChange={updateProjects}
+          />
+        );
+      case 8:
+        return (
           <TemplateScreen
             selectedTemplate={selectedTemplate}
             onChange={setSelectedTemplate}
           />
         );
-      case 8:
+      case 9:
         return (
           <PreviewScreen
             data={resumeData}
