@@ -18,6 +18,7 @@ const Navigation: React.FC<NavigationProps> = ({
   canProceed,
   isLastStep = false
 }) => {
+  console.log(totalSteps);
   return (
     <div className="flex justify-between items-center pt-8">
       <button

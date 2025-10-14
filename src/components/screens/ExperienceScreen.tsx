@@ -27,6 +27,20 @@ const ExperienceScreen: React.FC<ExperienceScreenProps> = ({ data, onChange }) =
     onChange(data.filter(item => item.id !== id));
   };
 
+  const handleDescriptionChange = (id: string, value: string) => {
+    // split lines
+    const lines = value.split('\n');
+    // add bullet if not present
+    const newValue = lines
+    .map(line => {
+      const trimmed = line.trim();
+      if (trimmed === '•') return ''; // remove line if only a bullet
+      return trimmed.startsWith('•') || trimmed === '' ? line : `• ${line}`;
+    })
+    .join('\n');
+    updateExperience(id, 'description', newValue);
+  };
+
   const updateExperience = (id: string, field: keyof Experience, value: string | boolean) => {
     onChange(data.map(item => 
       item.id === id ? { ...item, [field]: value } : item
@@ -174,10 +188,9 @@ const ExperienceScreen: React.FC<ExperienceScreenProps> = ({ data, onChange }) =
                 </label>
                 <textarea
                   value={item.description}
-                  onChange={(e) => updateExperience(item.id, 'description', e.target.value)}
+                  onChange={(e) => handleDescriptionChange(item.id, e.target.value)}
                   rows={4}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-                  placeholder="• Led development of user-facing features using React and Node.js&#10;• Collaborated with cross-functional teams to deliver products on time&#10;• Implemented automated testing that reduced bugs by 40%"
                 />
               </div>
             </div>

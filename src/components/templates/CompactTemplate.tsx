@@ -48,7 +48,7 @@ const CompactTemplate: React.FC<CompactTemplateProps> = ({ data }) => {
   </div>
 
   {/* Skills */}
-  {data.skills.length > 0 && (
+  {/* {data.skills.length > 0 && (
     <div className="mb-4">
       <h2 className="text-md font-semibold mb-1 text-teal-600">Skills</h2>
       <div className="flex flex-wrap gap-1">
@@ -59,7 +59,7 @@ const CompactTemplate: React.FC<CompactTemplateProps> = ({ data }) => {
         ))}
       </div>
     </div>
-  )}
+  )} */}
 
   {/* Education */}
   {data.education.length > 0 && (

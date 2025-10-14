@@ -1,6 +1,5 @@
 import React from 'react';
 import { ResumeData } from '../../types/Resume';
-import { Mail, Phone, MapPin, Globe, Linkedin } from 'lucide-react';
 
 interface ModernTemplateProps {
   data: ResumeData;
@@ -45,13 +44,24 @@ const ModernTemplate: React.FC<ModernTemplateProps> = ({ data }) => {
               Portfolio
             </a>
           )}
+          {data.personalInfo.linkedin && data.personalInfo.website && data.personalInfo.github && <span>|</span>}
+          {data.personalInfo.github && (
+            <a
+              href={data.personalInfo.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center text-blue-600 underline hover:text-blue-800 font-semibold"
+            >
+              Github
+            </a>
+          )}
         </div>
       </div>
       
       <div className="p-8">
         {/* Summary */}
         {data.summary && (
-          <div className="mb-8">
+          <div className="mb-4">
             <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-blue-600 pb-2">
               Professional Summary
             </h2>
@@ -61,11 +71,11 @@ const ModernTemplate: React.FC<ModernTemplateProps> = ({ data }) => {
         
         {/* Education */}
         {data.education.length > 0 && (
-          <div className="mb-8">
-            <h2 className="text-xl font-bold text-gray-900 pb-2 uppercase">
+          <div className="mb-4">
+            <h2 className="text-xl font-bold text-gray-900 uppercase">
               Education
             </h2>
-            <div className="space-y-4">
+            <div>
               {data.education.map((edu) => (
                 <div key={edu.id}>
                   <div className="flex justify-between items-start mb-1">
@@ -88,20 +98,22 @@ const ModernTemplate: React.FC<ModernTemplateProps> = ({ data }) => {
 
          {/* Experience */}
         {data.experience.length > 0 && (
-          <div className="mb-8">
-            <h2 className="text-xl font-bold text-gray-900 pb-2 uppercase">
+          <div className="mb-4">
+            <h2 className="text-xl font-bold text-gray-900 uppercase">
               Work Experience
             </h2>
-            <div className="space-y-6">
+            <div>
               {data.experience.map((exp) => (
                 <div key={exp.id}>
-                  <div className="flex justify-between items-start mb-2">
+                  <div className="flex justify-between items-start mb-1">
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900">{exp.company}</h3>
                       <p className="text-black-600 font-medium">{exp.title}</p>
                     </div>
-                    <p className="text-gray-600 text-sm">
-                      {exp.startMonth} {exp.startYear} - {exp.current ? 'Present' : exp.endMonth + ' ' + exp.endYear}
+                    <p className="text-gray-600 text-sm whitespace-nowrap">
+                      {exp.startMonth} {exp.startYear} - {exp.current
+                        ? 'Present'
+                        : [exp.endMonth, exp.endYear].filter(Boolean).join(' ')}
                     </p>
                   </div>
                   <div className="text-gray-700 leading-relaxed whitespace-pre-line">
@@ -114,19 +126,19 @@ const ModernTemplate: React.FC<ModernTemplateProps> = ({ data }) => {
         )}
         
         {/* Skills */}
-        {data.skills.length > 0 && (
-          <div className="mb-8">
-            <h2 className="text-xl font-bold text-gray-900 pb-2 uppercase">
-              Skills
+        {Object.keys(data.skills).length > 0 && (
+          <div className="mb-2">
+            <h2 className="text-xl font-bold text-gray-900 uppercase">
+              Technical Skills
             </h2>
-            <div className="flex flex-wrap gap-2">
-              {data.skills.map((skill, index) => (
-                <span
-                  key={index}
-                  className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium"
-                >
-                  {skill}
-                </span>
+            <div>
+              {Object.keys(data.skills).map((category) => (
+                <div key={category} className="mb-2">
+                  <span className="text-sm font-semibold text-gray-900">{category}:</span>{' '}
+                  <span className="text-sm text-gray-700">
+                    {data.skills[category].join(', ')}
+                  </span>
+                </div>
               ))}
             </div>
           </div>

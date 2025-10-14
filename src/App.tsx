@@ -41,7 +41,7 @@ function App() {
     summary: '',
     education: [],
     experience: [],
-    skills: [],
+    skills: {},
     projects: []
   });
 
@@ -61,7 +61,7 @@ function App() {
     setResumeData(prev => ({ ...prev, experience }));
   };
 
-  const updateSkills = (skills: string[]) => {
+  const updateSkills = (skills: Record<string, string[]>) => {
     setResumeData(prev => ({ ...prev, skills }));
   };
 
@@ -97,7 +97,7 @@ function App() {
       summary: '',
       education: [],
       experience: [],
-      skills: [],
+      skills: {},
       projects: []
     });
   };
@@ -120,7 +120,7 @@ function App() {
         return resumeData.experience.length > 0 && 
                resumeData.experience.every(exp => exp.title && exp.company && exp.startYear && exp.description);
       case 6: // Skills
-        return resumeData.skills.length > 0;
+        return Object.keys(resumeData.skills).length > 0;
       case 7: // Projects
         return resumeData.projects.length > 0;
       case 8: // Template

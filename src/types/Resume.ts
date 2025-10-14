@@ -5,6 +5,7 @@ export interface PersonalInfo {
   phone: string;
   location: string;
   linkedin?: string;
+  github?: string;
   website?: string;
 }
 
@@ -47,7 +48,7 @@ export interface ResumeData {
   summary: string;
   education: Education[];
   experience: Experience[];
-  skills: string[];
+  skills: Record<string, string[]>;
   projects: Project[];
 }
 
