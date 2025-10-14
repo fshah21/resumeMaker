@@ -10,34 +10,40 @@ const ModernTemplate: React.FC<ModernTemplateProps> = ({ data }) => {
   return (
     <div className="max-w-4xl mx-auto bg-white shadow-lg" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-8">
-        <h1 className="text-4xl font-bold mb-2">{data.personalInfo.name}</h1>
-        <p className="text-xl text-blue-100 mb-4">{data.personalInfo.title}</p>
-        
-        <div className="flex flex-wrap gap-4 text-sm">
-          <div className="flex items-center">
-            <Mail className="w-4 h-4 mr-2" />
-            {data.personalInfo.email}
-          </div>
-          <div className="flex items-center">
-            <Phone className="w-4 h-4 mr-2" />
-            {data.personalInfo.phone}
-          </div>
-          <div className="flex items-center">
-            <MapPin className="w-4 h-4 mr-2" />
-            {data.personalInfo.location}
-          </div>
+      <div className="text-black p-4 text-center">
+        {/* NAME */}
+        <h1 className="text-3xl font-bold mb-2 uppercase">
+          {data.personalInfo.name}
+        </h1>
+
+        {/* CONTACT INFO */}
+       <p className="text-sm text-black-100 mb-2">
+        <span className="font-semibold">Mobile:</span> {data.personalInfo.phone} |{" "}
+        <span className="font-semibold">Email:</span> {data.personalInfo.email}
+      </p>
+
+        {/* LINKS */}
+        <div className="flex justify-center items-center gap-1 text-sm">
           {data.personalInfo.linkedin && (
-            <div className="flex items-center">
-              <Linkedin className="w-4 h-4 mr-2" />
+            <a
+              href={data.personalInfo.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center text-blue-600 underline hover:text-blue-800 font-semibold"
+            >
               LinkedIn
-            </div>
+            </a>
           )}
+          {data.personalInfo.linkedin && data.personalInfo.website && <span>|</span>}
           {data.personalInfo.website && (
-            <div className="flex items-center">
-              <Globe className="w-4 h-4 mr-2" />
+            <a
+              href={data.personalInfo.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center text-blue-600 underline hover:text-blue-800 font-semibold"
+            >
               Portfolio
-            </div>
+            </a>
           )}
         </div>
       </div>
@@ -53,10 +59,37 @@ const ModernTemplate: React.FC<ModernTemplateProps> = ({ data }) => {
           </div>
         )}
         
-        {/* Experience */}
+        {/* Education */}
+        {data.education.length > 0 && (
+          <div className="mb-8">
+            <h2 className="text-xl font-bold text-gray-900 pb-2 uppercase">
+              Education
+            </h2>
+            <div className="space-y-4">
+              {data.education.map((edu) => (
+                <div key={edu.id}>
+                  <div className="flex justify-between items-start mb-1">
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900">{edu.degree}</h3>
+                      <p className="text-black-600 font-medium">{edu.institution}</p>
+                    </div>
+                    <p className="text-gray-600 text-sm">
+                      {edu.startMonth} {edu.startYear} - {edu.endMonth} {edu.endYear}
+                    </p>
+                  </div>
+                  {edu.description && (
+                    <p className="text-gray-700 text-sm mt-1">{edu.description}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+         {/* Experience */}
         {data.experience.length > 0 && (
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-blue-600 pb-2">
+            <h2 className="text-xl font-bold text-gray-900 pb-2 uppercase">
               Work Experience
             </h2>
             <div className="space-y-6">
@@ -64,11 +97,11 @@ const ModernTemplate: React.FC<ModernTemplateProps> = ({ data }) => {
                 <div key={exp.id}>
                   <div className="flex justify-between items-start mb-2">
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-900">{exp.title}</h3>
-                      <p className="text-blue-600 font-medium">{exp.company}</p>
+                      <h3 className="text-lg font-semibold text-gray-900">{exp.company}</h3>
+                      <p className="text-black-600 font-medium">{exp.title}</p>
                     </div>
                     <p className="text-gray-600 text-sm">
-                      {exp.startYear} - {exp.current ? 'Present' : exp.endYear}
+                      {exp.startMonth} {exp.startYear} - {exp.current ? 'Present' : exp.endMonth + ' ' + exp.endYear}
                     </p>
                   </div>
                   <div className="text-gray-700 leading-relaxed whitespace-pre-line">
@@ -80,37 +113,10 @@ const ModernTemplate: React.FC<ModernTemplateProps> = ({ data }) => {
           </div>
         )}
         
-        {/* Education */}
-        {data.education.length > 0 && (
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-blue-600 pb-2">
-              Education
-            </h2>
-            <div className="space-y-4">
-              {data.education.map((edu) => (
-                <div key={edu.id}>
-                  <div className="flex justify-between items-start mb-1">
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-900">{edu.degree}</h3>
-                      <p className="text-blue-600 font-medium">{edu.institution}</p>
-                    </div>
-                    <p className="text-gray-600 text-sm">
-                      {edu.startYear} - {edu.endYear}
-                    </p>
-                  </div>
-                  {edu.description && (
-                    <p className="text-gray-700 text-sm mt-1">{edu.description}</p>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-        
         {/* Skills */}
         {data.skills.length > 0 && (
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-blue-600 pb-2">
+            <h2 className="text-xl font-bold text-gray-900 pb-2 uppercase">
               Skills
             </h2>
             <div className="flex flex-wrap gap-2">

@@ -17,7 +17,7 @@ const SummaryScreen: React.FC<SummaryScreenProps> = ({ data, onChange }) => {
         <div className="space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-3">
-              Professional Summary *
+              Professional Summary
             </label>
             <textarea
               value={data}

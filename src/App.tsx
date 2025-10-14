@@ -19,6 +19,7 @@ const STEPS = [
   'Education',
   'Experience',
   'Skills',
+  'Projects',
   'Template',
   'Preview'
 ];
@@ -111,7 +112,7 @@ function App() {
                  resumeData.personalInfo.phone && 
                  resumeData.personalInfo.location);
       case 3: // Summary
-        return !!resumeData.summary.trim();
+        return !resumeData.summary.trim();
       case 4: // Education
         return resumeData.education.length > 0 && 
                resumeData.education.every(edu => edu.degree && edu.institution && edu.startYear && edu.endYear);
@@ -213,7 +214,7 @@ function App() {
           {renderCurrentScreen()}
         </div>
         
-        {currentStep > 1 && currentStep < 8 && (
+        {currentStep > 1 && currentStep < 9 && (
           <Navigation
             currentStep={currentStep}
             totalSteps={STEPS.length}
